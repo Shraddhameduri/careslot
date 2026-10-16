@@ -20,25 +20,25 @@ TypeScript + Vite · Docker Compose · GitHub Actions CI
 ```mermaid
 flowchart LR
     subgraph Client
-        FE[React SPA<br/>Vite + TS]
+        FE["React SPA - Vite + TS"]
     end
     subgraph Edge
-        NG[nginx<br/>static + /api proxy<br/>SSE passthrough]
+        NG["nginx - static, /api proxy, SSE passthrough"]
     end
-    subgraph API[Spring Boot 3.2]
-        JWT[JwtAuthFilter]
-        TEN[TenantContextFilter]
-        CTRL[REST controllers]
-        BOOK[BookingService<br/>@Transactional]
-        SLOT[SlotService]
-        AVAIL[AvailabilityService]
-        SSE[SseService<br/>fan-out]
-        PAY[PaymentService<br/>mock-stripe]
-        CACHE[(AvailabilityCache<br/>Redis → in-memory fallback)]
+    subgraph API["Spring Boot 3.2"]
+        JWT["JwtAuthFilter"]
+        TEN["TenantContextFilter"]
+        CTRL["REST controllers"]
+        BOOK["BookingService - Transactional"]
+        SLOT["SlotService"]
+        AVAIL["AvailabilityService"]
+        SSE["SseService - fan-out"]
+        PAY["PaymentService - mock-stripe"]
+        CACHE[("AvailabilityCache - Redis with in-memory fallback")]
     end
     subgraph Data
-        PG[(PostgreSQL 16<br/>Flyway migrations)]
-        RD[(Redis 7<br/>availability cache)]
+        PG[("PostgreSQL 16 - Flyway migrations")]
+        RD[("Redis 7 - availability cache")]
     end
     FE --> NG --> CTRL
     CTRL --> JWT --> TEN --> BOOK
