@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:careslot-test;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  data:
+    redis:
+      # Unreachable on purpose: tests must exercise the in-memory fallback cache.
+      host: 127.0.0.1
+      port: 6399
+      timeout: 500ms
+
+app:
+  seed:
+    enabled: false
+  jwt:
+    secret: test-secret-that-is-long-enough-for-hs256-0123456789abcdef
+    access-minutes: 15
+    refresh-days: 7

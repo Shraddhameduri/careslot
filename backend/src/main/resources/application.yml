@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: careslot
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/careslot}
+    username: ${DATABASE_USER:careslot}
+    password: ${DATABASE_PASSWORD:careslot}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: 2s
+      # Redis is optional: if unreachable the app falls back to an in-memory
+      # availability cache (see AvailabilityCacheConfig).
+
+app:
+  seed:
+    enabled: ${SEED_ENABLED:true}
+  jwt:
+    secret: ${JWT_SECRET:change-me-to-a-long-random-secret-in-production-0123456789abcdef}
+    access-minutes: 15
+    refresh-days: 7
+  rate-limit:
+    login:
+      capacity: 10
+      refill-per-minute: 10
